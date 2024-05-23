@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
     try {
         const user = await User.findById(req.session.user._id)
         user.pantry.push(req.body)
-        user.save()
+        await user.save()
         res.redirect(`/users/${req.session.user._id}/foods`)
     } catch (error) {
         console.error(error)
@@ -34,8 +34,8 @@ router.delete('/:itemId', async (req, res) => {
     try {
         const user = await User.findById(req.session.user._id)
         const item = user.pantry.id(req.params.itemId)
-        user.pantry.pull(item)
-        user.save()
+        item.deleteOne()
+        await user.save()
         res.redirect(`/users/${req.session.user._id}/foods`)
     } catch (error) {
         console.error(error)
@@ -58,8 +58,8 @@ router.put('/:itemId', async (req, res) => {
     try {
         const user = await User.findById(req.session.user._id)
         const item = user.pantry.id(req.params.itemId)
-        item.name = req.body.name
-        user.save()
+        item.set('name', req.body.name)
+        await user.save()
         res.redirect(`/users/${req.session.user_id}/foods`)
     } catch (error) {
         console.error(error)
