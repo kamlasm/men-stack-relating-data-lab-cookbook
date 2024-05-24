@@ -9,6 +9,7 @@ const session = require('express-session');
 const authController = require('./controllers/auth.js');
 const foodsController = require('./controllers/foods.js');
 const usersController = require('./controllers/users.js');
+const recipesController = require('./controllers/recipes.js');
 
 const MongoStore = require("connect-mongo");
 
@@ -56,6 +57,7 @@ app.use('/auth', authController);
 app.use(isSignedIn);
 app.use('/users', usersController);
 app.use('/users/:userId/foods', foodsController);
+app.use('/users/:userId/recipes', recipesController);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

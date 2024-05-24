@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Recipes</title>
+</head>
+<body>
+    <%- include ('../partials/_navbar.ejs') %>
+    <h1>My Recipes</h1>
+    <% if (recipes.length !== 0) { %>
+        <ul>
+        <% recipes.forEach(recipe => { %>
+            <li><a href="/users/<%= user._id %>/recipes/<%= recipe._id %>"><%= recipe.name %></a></li>
+        <% }) %>        
+        </ul>
+    <% } else { %>
+        <p>You have not created any recipes yet.</p>
+    <% } %>
+    <a href="/users/<%= user._id %>/recipes/new">Add New Recipe</a>   
+</body>
+</html>
